@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import subprocess
+import sys
+import sagemaker
+
+sys.path.insert(0, '..')
+
+from config import get_config
+from logger import get_logger
+
+log = get_logger(__name__)
+cfg = get_config("LOCAL")
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+parser = argparse.ArgumentParser(description='Train the neural network')
+parser.add_argument('--remote', '-r', action='store_true')
+parser.add_argument('--preprocess', '-p', action='store_true')
+args = vars(parser.parse_args())
+
+if __name__ == "__main__":
+    subprocess.check_call(["./build"], cwd=__location__)
+
+    if args.get("remote"):
+
+        log.error("Remote running not configured.")
+
+    if args.get("preprocess"):
+
+        log.error("Preprocess running not configured.")
+
+    else:
+        nii_dir = os.path.abspath(cfg['coco'].get("nii_dir"))
+        raw_dir = os.path.abspath(cfg['coco'].get("raw_dir"))
+        split_dir = os.path.abspath(cfg['coco'].get("split_dir"))
+        model_dir = os.path.abspath(cfg['coco'].get("model_dir"))
+
+        os.makedirs(raw_dir, exist_ok=True)
+        os.makedirs(split_dir, exist_ok=True)
+        os.makedirs(model_dir, exist_ok=True)
+
+        log.info("model_dir = %s" % model_dir)
+        log.info("raw_dir = %s" % raw_dir)
+        log.info("split_dir = %s" % split_dir)
+
+        command = [
+            "docker",
+            "run",
+            "--rm",
+            "--runtime=nvidia",
+            "-v", "%s:/opt/ml/model" % model_dir,
+            "-v", "%s:/opt/raw/nii" % nii_dir,
+            "-v", "%s:/opt/raw" % raw_dir,
+            "-v", "%s:/opt/raw/split" % split_dir,
+            "--shm-size", "1G",
+            "%s:coco" % cfg['coco'].get("registry_url"),
+            "train"
+        ]
+
+        log.info("Running: %s" % " ".join(command))
+
+        subprocess.check_call(
+            command,
+            cwd=__location__
+        )

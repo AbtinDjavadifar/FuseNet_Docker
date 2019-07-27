@@ -1,0 +1,6 @@
+{
+  "fusenet": {
+    "data_dir": "./data/"
+  },
+  "registry_url": "segmentation"
+}
