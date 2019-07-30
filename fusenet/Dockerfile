@@ -12,8 +12,8 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 ENV PATH="/app:${PATH}"
 
-# Copy the current directory contents into the container at /app
-COPY .. /app
+# # Copy the current directory contents into the container at /app
+# COPY .. /app
 
 RUN pip3 install --upgrade pip
 
