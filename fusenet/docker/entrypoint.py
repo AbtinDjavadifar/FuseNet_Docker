@@ -11,19 +11,6 @@ if __name__ == "__main__":
     cmd = sys.argv[1]
 
     if cmd == "train":
-        # subprocess.check_call([
-        #     "python",
-        #     "process_nii.py"
-        # ],
-        #     cwd=__location__
-        # )
-
-        # subprocess.check_call([
-        #     "python",
-        #     "split_data.py"
-        # ],
-        #     cwd=__location__
-        # )
         subprocess.check_call([
             "python",
             "fusenet_train.py",
