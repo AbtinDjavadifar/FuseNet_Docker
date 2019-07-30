@@ -10,8 +10,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-ENV PATH="/opt/program:${PATH}"
-
+ENV PATH="/app:${PATH}"
 
 # Copy the current directory contents into the container at /app
 COPY .. /app
