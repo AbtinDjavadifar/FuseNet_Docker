@@ -4,7 +4,6 @@ import argparse
 import os
 import subprocess
 import sys
-import sagemaker
 
 sys.path.insert(0, '..')
 
