@@ -26,7 +26,13 @@ if __name__ == "__main__":
         # )
         subprocess.check_call([
             "python",
-            "masks2coco.py"
+            "fusenet_train.py",
+            "--dataroot",
+            "./datasets/nyu_class_10_db.h5",
+            "--batch_size",
+            "8",
+            "--lr",
+            "0.005"
         ],
             cwd=__location__
         )
