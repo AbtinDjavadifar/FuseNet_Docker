@@ -22,6 +22,7 @@ parser.add_argument('--preprocess', '-p', action='store_true')
 args = vars(parser.parse_args())
 
 if __name__ == "__main__":
+    subprocess.check_call(["chmod +x build"], cwd=__location__)
     subprocess.check_call(["./build"], cwd=__location__)
 
     if args.get("remote"):
