@@ -23,15 +23,11 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 
-#sudo docker run hello-world
-
 #letting docker to run without sudo
 
 sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
-
-docker run hello-world
 
 # NVIDIA
 # Add the package repositories
@@ -41,4 +37,3 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 sudo systemctl restart docker
-
